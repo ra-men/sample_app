@@ -9,7 +9,8 @@ gem 'pg'
 
 group :development, :test do
   gem 'rspec-rails', '2.8.1'
-  gem 'guard-rspec', '0.5.5'
+  gem 'guard-rspec', '0.5.5'	
+  gem 'annotate', '~> 2.4.1.beta'
 end
 
 # Gems used only for assets and not required
@@ -33,7 +34,7 @@ group :test do
 end
 
 # To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the web server
 # gem 'unicorn'
