@@ -46,3 +46,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
+gem 'faker', '1.0.1'
+gem 'will_paginate', '3.0.3'
+gem 'bootstrap-sass', '2.0.0'
+gem 'bootstrap-will_paginate', '0.0.5'
