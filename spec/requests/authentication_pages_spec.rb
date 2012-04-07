@@ -26,11 +26,12 @@ describe "Authentication" do
 
     describe "with valid information" do
       let(:user) { FactoryGirl.create(:user) }
-      before do
-        fill_in "Email", with: user.email
-        fill_in "Password", with: user.password
-        click_button "Sign in"
-      end
+      before { sign_in user }
+      # before do
+      #   fill_in "Email", with: user.email
+      #   fill_in "Password", with: user.password
+      #   click_button "Sign in"
+      # end
 
       it { should have_selector('title', text: user.name) }
       it { should have_selector('li', text: 'Profile') }
@@ -38,6 +39,7 @@ describe "Authentication" do
       it { should have_selector('li', text: 'Sign out') }
       it { should have_link('Profile', href: user_path(user)) }
       it { should_not have_link('Sign in', href: signin_path) }
+
 
       describe "followed by signout" do
         before { click_link "Sign out" }
@@ -79,6 +81,36 @@ describe "Authentication" do
         end
 
       end
+
+      describe "when attempting to visit a protected page" do
+        before do
+          visit edit_user_path(user)
+          fill_in "Email", with: user.email
+          fill_in "Password", with: user.password
+          click_button "Sign in"
+        end
+
+        describe "after signin in" do
+          it "should render the desired protected page" do
+            page.should have_selector('title', text: "Edit user")
+          end
+
+          describe "when signing in again" do
+            before do
+              visit signout_path
+              visit signin_path
+              fill_in "Email", with: user.email
+              fill_in "Password", with: user.password
+              click_button "Sign in"
+            end
+
+            it "should render the default (profile) page" do
+              page.should have_selector('title', text: user.name)
+            end
+          end
+        end
+      end
+
     end
 
     describe "as wrong user" do
@@ -100,6 +132,11 @@ describe "Authentication" do
 
     describe "for non signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
+
+      describe "visiting any page" do
+        before { visit root_path }
+        it { should_not have_selector('li', text: 'Profile')}
+      end
 
       describe "when attempting to visit a protected page" do
         before do
