@@ -110,10 +110,18 @@ describe "UsersPages" do
 
   describe "Profile Page" do
     let(:user) { FactoryGirl.create(:user) }
+    let!(:m1)  { FactoryGirl.create(:micropost, user: user, content: "Foo") }
+    let!(:m2)  { FactoryGirl.create(:micropost, user: user, content: "Foo") }
     before { visit user_path(user) }
 
     it { should have_selector('h1', text: user.name) }
     it { should have_selector('title', text: user.name) }
+
+    describe "microposts" do
+      it { should have_content(m1.content) }
+      it { should have_content(m2.content) }
+      it { should have_content(user.microposts.count) }
+    end
   end
 
   describe "Sign up page" do
@@ -175,7 +183,7 @@ describe "UsersPages" do
       let(:error) { '2 errors prohibited this user from being saved' }
       before { click_button "Save changes" }
 
-      it { should have_content(error) }
+      it { should have_content('error') }
     end
 
     describe "with valid information" do
