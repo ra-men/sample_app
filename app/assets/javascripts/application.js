@@ -11,7 +11,7 @@
 
 $(document).ready(function(){
     var length = $('#micropost_counter').val();
-    $('#micropost_content').keyup(function(){
+    $('#micropost_content').bind('keyup keydown', function(){
 	var new_length = length - ($(this).val().length);
 	$('#micropost_counter').val(new_length);
 	(new_length < 0) ?  $('#micropost_counter').css('color','red')  :
