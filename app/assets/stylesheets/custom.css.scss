@@ -204,3 +204,19 @@ aside {
   }
 }
 	
+
+#micropost_counter {
+    border: none;
+    background-color: #FFF;
+    cursor: default;
+    -webkit-box-shadow: 0 0 0;
+    -mox-box-shadow: 0 0 0;
+    box-shadow: 0 0 0;
+    padding: 0px;
+    size: auto;
+    text-align: right;
+    font-size: small;
+    width: 20%;
+    vertical-align: top;
+    float: right;
+}

@@ -8,3 +8,14 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+
+$(document).ready(function(){
+    var length = $('#micropost_counter').val();
+    $('#micropost_content').keyup(function(){
+	var new_length = length - ($(this).val().length);
+	$('#micropost_counter').val(new_length);
+	(new_length < 0) ?  $('#micropost_counter').css('color','red')  :
+	                    $('#micropost_counter').css('color','#555');
+    });
+
+});

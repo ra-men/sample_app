@@ -41,4 +41,45 @@ describe "Micropost pages" do
       end
     end
   end
+  
+  describe "micropost counting" do
+    before { FactoryGirl.create(:micropost, user: user) }
+
+    describe "having only one micropost" do
+      before { visit root_path }
+      
+      it { should have_selector('span', text: '1 micropost' ) }
+    end
+
+    describe "having 2 microposts" do
+      before do
+        FactoryGirl.create(:micropost, user: user) 
+        visit root_path
+      end
+
+      it { should have_selector('span', text: '2 microposts')}
+    end
+  end
+
+  describe "micropost pagination" do
+    before do 
+      34.times { FactoryGirl.create(:micropost, user: user) } 
+      visit root_path 
+    end
+
+    it { should have_link("Next") }
+    it { should have_link("2") }
+  end
+
+  describe "micropost delete links" do
+    let(:other_user) { FactoryGirl.create(:user) }
+    before do
+      FactoryGirl.create(:micropost, user: other_user)
+      visit user_path(other_user)
+    end
+    
+    describe "should not appear on other users' microposts" do
+      it { should_not have_link('delete') }
+    end
+  end
 end
