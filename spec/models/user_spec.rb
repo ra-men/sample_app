@@ -164,6 +164,21 @@ describe User do
     end
   end
   
+  describe "relationships association" do
+    before { @user.save }
+
+    let(:other_user) { FactoryGirl.create(:user) }
+
+    it "should destroy all relationsips" do
+      @user.follow!(other_user)
+      relations = @user.relationships
+      @user.destroy
+      relations.each do |relation|
+        Relationship.find_by_id(relation.id).should be_nil
+      end
+    end
+  end
+
   describe "following" do
     let(:other_user) { FactoryGirl.create(:user) }
     before do 

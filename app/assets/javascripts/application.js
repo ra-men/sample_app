@@ -4,9 +4,9 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
+//= require bootstrap
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
 //= require_tree .
 
 $(document).ready(function(){
@@ -17,5 +17,5 @@ $(document).ready(function(){
 	(new_length < 0) ?  $('#micropost_counter').css('color','red')  :
 	                    $('#micropost_counter').css('color','#555');
     });
-
 });
+
